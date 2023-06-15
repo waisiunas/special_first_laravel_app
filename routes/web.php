@@ -15,24 +15,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
-// Route::get('/users', function () {
-//     $users = [
-//         'Ali',
-//         'Hassan',
-//         'Saif',
-//     ];
-//     return view('users', [
-//         'users' => $users
-//     ]);
-// })->name('users');
-
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
-Route::get('/users', [UserController::class, 'show_users'])->name('users');
-Route::get('/user/create', [UserController::class, 'create_user'])->name('create_user');
-Route::get('/user/edit', [UserController::class, 'edit_user'])->name('edit_user');
-Route::get('/user/delete', [UserController::class, 'delete_user'])->name('delete_user');
+Route::get('/users', [UserController::class, 'index'])->name("users");
+Route::get('/user/create', [UserController::class, 'create'])->name("user.create");
+Route::post('/user/create', [UserController::class, 'store']);
