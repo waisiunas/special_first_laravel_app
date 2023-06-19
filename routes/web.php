@@ -20,3 +20,6 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/users', [UserController::class, 'index'])->name("users");
 Route::get('/user/create', [UserController::class, 'create'])->name("user.create");
 Route::post('/user/create', [UserController::class, 'store']);
+Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name("user.edit");
+Route::post('/user/{user}/edit', [UserController::class, 'update']);
+Route::get('/user/{user}/delete', [UserController::class, 'destroy'])->name("user.delete");

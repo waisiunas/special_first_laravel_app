@@ -21,35 +21,60 @@
                                 <h3>Users</h3>
                             </div>
                             <div class="col-md-6 text-end">
-                                <a href="{{ route("user.create") }}" class="btn btn-outline-primary">Add User</a>
+                                <a href="{{ route('user.create') }}" class="btn btn-outline-primary">Add User</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered m-0">
-                            <thead>
-                                <tr>
-                                    <th>Sr. No.</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>CNIC</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Ali</td>
-                                    <td>ali@gmail.com</td>
-                                    <td>123</td>
-                                    <td>
-                                        <a href="" class="btn btn-primary">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @if (Session::has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ Session::get('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @elseif (Session::has('failure'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ Session::get('failure') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if (count($users) > 0)
+                            <table class="table table-bordered m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>CNIC</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->cnic }}</td>
+                                            <td>
+                                                <a href="{{ route('user.edit', $user) }}"
+                                                    class="btn btn-primary">Edit</a>
+                                                <a href="{{ route('user.delete', $user) }}"
+                                                    class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="alert alert-danger m-0">No record found!</div>
+                        @endif
+
+
                     </div>
                 </div>
             </div>
